@@ -50,7 +50,7 @@ describe("Katayuno Mission 1", () => {
     ];
     const fsWriteSpy = sinon.spy(fs, "writeFileSync");
 
-    const result = mision.execute(FILE_IN, '', tasks);
+    mision.execute(FILE_IN, '', tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901ABCDEFGHIJK');
   });
