@@ -5,10 +5,10 @@ export default class Mision1 {
         this.fs = fs;
     }
 
-    execute(file, bytesBeginning, bytesEnd) {
+    execute(file, tasks) {
         const fileContents = this.fs.readFileSync(file);
-        const slicedContents = fileContents.slice(bytesBeginning, fileContents.length - bytesEnd);
-        return slicedContents;
+
+        return tasks.reduce((content, task) => task.execute(content), fileContents);
     }
 }
 

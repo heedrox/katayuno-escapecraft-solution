@@ -1,4 +1,5 @@
 import Mision1 from './mision1'
+import RemoveBeginningTask from './tasks/remove-beginning'
 
 describe("Katayuno", () => {
     const fs = {};
@@ -11,18 +12,31 @@ describe("Katayuno", () => {
         const mision = new Mision1(fs);
         const fsSpy = sinon.spy(fs, "readFileSync");
 
-        mision.execute('ficheros/testfile.txt');
+        mision.execute('ficheros/testfile.txt', []);
 
         expect(fsSpy.calledWith('ficheros/testfile.txt')).equal(true);
     });
 
-    it('should remove the first X bytes and the last Y bytes', () => {
+    it('should remove the first X bytes', () => {
       const mision = new Mision1(fs);
+      const tasks = [
+        new RemoveBeginningTask(11)
+      ];
 
-      const result = mision.execute('ficheros/testfile.txt', 11, 10);
+      const result = mision.execute('ficheros/testfile.txt', tasks);
 
-      expect(result.toString('utf8')).to.equal('ABCDEFGHIJK');
+      expect(result.toString('utf8')).to.equal('ABCDEFGHIJK1234567890');
     });
 
+  it('should remove the last Y bytes', () => {
+    const mision = new Mision1(fs);
+    const tasks = [
+      new RemoveBeginningTask(11)
+    ];
+
+    const result = mision.execute('ficheros/testfile.txt', tasks);
+
+    expect(result.toString('utf8')).to.equal('ABCDEFGHIJK1234567890');
+  });
 
 });
