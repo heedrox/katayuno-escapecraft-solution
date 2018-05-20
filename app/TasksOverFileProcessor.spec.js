@@ -24,46 +24,50 @@ describe('TasksOverFileProcessor', () => {
     fsWriteSpy = sinon.spy(fs, 'writeFileSync');
   });
 
-  it('should read file into a buffer', () => {
-    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, []);
+  describe('handles file reading and writing', () => {
+    it('should read file into a buffer', () => {
+      processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, []);
 
-    expect(fsReadSpy.calledWith(FILE_IN)).equal(true);
+      expect(fsReadSpy.calledWith(FILE_IN)).equal(true);
+    });
+
+    it('should write file from the buffer', () => {
+      processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, []);
+
+      expect(fsWriteSpy.firstCall.args[0]).equal(FILE_OUT);
+    });
   });
 
-  it('should write file from the buffer', () => {
-    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, []);
+  describe('does tasks that removes elements', () => {
+    it('should remove the first X bytes', () => {
+      const tasks = [
+        new RemoveBeginningTask(11)
+      ];
 
-    expect(fsWriteSpy.firstCall.args[0]).equal(FILE_OUT);
-  });
+      processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
 
-  it('should remove the first X bytes', () => {
-    const tasks = [
-      new RemoveBeginningTask(11)
-    ];
+      expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('ABCDEFGHIJK1234567890');
+    });
 
-    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
+    it('should remove the last Y bytes', () => {
+      const tasks = [
+        new RemoveLastTask(10),
+      ];
 
-    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('ABCDEFGHIJK1234567890');
-  });
+      processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
 
-  it('should remove the last Y bytes', () => {
-    const tasks = [
-      new RemoveLastTask(10),
-    ];
+      expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901ABCDEFGHIJK');
+    });
 
-    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
+    it('should remove each X byte', () => {
+      const tasks = [
+        new RemoveEachTask(3)
+      ];
 
-    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901ABCDEFGHIJK');
-  });
+      processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
 
-  it('should remove each X byte', () => {
-    const tasks = [
-      new RemoveEachTask(3)
-    ];
-
-    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
-
-    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('12457801BCEFHIK1346790');
+      expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('12457801BCEFHIK1346790');
+    });
   });
 
   it('should reverse', () => {
@@ -76,4 +80,7 @@ describe('TasksOverFileProcessor', () => {
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('0987654321KJIHGFEDCBA10987654321');
   });
 
+  describe('when removing elements, we can get discarded bytes', () => {
+
+  });
 });
