@@ -1,0 +1,41 @@
+{
+  "name": "nodejs-babel-es6-mocha-skeleton",
+  "version": "1.0.0",
+  "description": "Simple project setup for writing Nodejs apps with ES6 and BABEL, and unit testing with Mocha, Chai, and code coverage with Istanbul.",
+  "scripts": {
+    "example": "node index.js",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
+    "tdd:mac": "./node_modules/.bin/mocha -w"
+  },
+  "author": {
+    "name": "Jordi Marti",
+    "url": "http://theinit.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmarti-theinit/nodejs-babel-es6-mocha-skeleton"
+  },
+  "keywords": [
+    "ES6",
+    "ES2015",
+    "nodejs",
+    "mocha",
+    "chia",
+    "istanbul",
+    "tdd",
+    "sinon",
+    "unit test"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.25.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.4",
+    "mocha": "^3.0.2",
+    "sinon": "^1.17.5",
+    "sinon-chai": "^2.8.0"
+  }
+}

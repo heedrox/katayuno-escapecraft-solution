@@ -1,0 +1,3 @@
+- ¿Cómo hemos comenzado el test? Yo de arriba a abajo, es decir, "leo un fichero..." Me daba miedo que al hacerlo al revés, lo implementara mal en base al tipo de elemento que me devuelve el fichero
+- Al principio he empezado de integración, leyendo el fichero, pero luego he mockeado "fs".
+- Luego he hecho espai
