@@ -1,6 +1,7 @@
 import Mision1 from './mision1'
 import RemoveBeginningTask from './tasks/remove-beginning'
 import RemoveLastTask from './tasks/remove-last'
+import RemoveEachTask from './tasks/remove-each'
 
 describe("Katayuno Mission 1", () => {
     const fs = {};
@@ -53,6 +54,18 @@ describe("Katayuno Mission 1", () => {
     mision.execute(FILE_IN, '', tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901ABCDEFGHIJK');
+  });
+
+  it('should remove each X byte', () => {
+    const mision = new Mision1(fs);
+    const tasks = [
+      new RemoveEachTask(3)
+    ];
+    const fsWriteSpy = sinon.spy(fs, "writeFileSync");
+
+    mision.execute(FILE_IN, '', tasks);
+
+    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('12457801BCEFHIK1346790');
   });
 
 
