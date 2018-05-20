@@ -44,11 +44,11 @@ describe('TasksOverFileAccumulator', () => {
       { execute: (x) => x.slice(0,3) }, //123
       { execute: (x) => x.slice(1,2) }, //5
     ];
+    const orders = [1, 0];
 
-    accumulator.execute(FILE_IN, FILE_OUT, tasksReduce, tasksAccumulate);
+    accumulator.execute(FILE_IN, FILE_OUT, tasksReduce, tasksAccumulate, orders);
 
-    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('1235');
-
+    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('5123');
   });
 
 });

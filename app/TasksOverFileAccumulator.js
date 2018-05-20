@@ -6,7 +6,7 @@ class TasksOverFileAccumulator {
     this.fs = fs;
   }
 
-  execute(filein, fileout, tasksReduce, tasksAccumulate) {
+  execute(filein, fileout, tasksReduce, tasksAccumulate, orders) {
     const fileContents = this.fs.readFileSync(filein);
 
     const buffers = [];
@@ -17,7 +17,8 @@ class TasksOverFileAccumulator {
     }, fileContents);
 
 
-    const result = buffersConcat(buffers);
+    const orderedBuffers = orders ? orders.map(position => buffers[position]) : buffers;
+    const result = buffersConcat(orderedBuffers);
 
     this.fs.writeFileSync(fileout, result);
   }
