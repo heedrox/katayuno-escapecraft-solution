@@ -1,18 +1,27 @@
 import TasksOverFileProcessor from './TasksOverFileProcessor'
+
 const fs = require('fs');
 
-describe("TasksOverFileProcessor Integration", () => {
+describe('TasksOverFileProcessor Integration', () => {
 
-    beforeEach(() => {
-    });
+  beforeEach(() => {
+  });
 
-    it("should read and write the file", () => {
-        const mision = new TasksOverFileProcessor(fs);
+  it('should read and write the file', () => {
+    const mision = new TasksOverFileProcessor(fs);
 
-        mision.execute('ficheros/testfile.txt', 'ficheros/testfile-out.txt', 'ficheros/testfile-discard.txt', []);
+    mision.execute('ficheros/testfile.txt', 'ficheros/testfile-out.txt', 'ficheros/testfile-discard.txt', []);
 
-        const bufferOut = fs.readFileSync('ficheros/testfile-out.txt');
-        expect(bufferOut.toString('utf8')).equal('1234567890ABCDEFGHIJK1234567890');
-    });
+    const bufferOut = fs.readFileSync('ficheros/testfile-out.txt');
+    expect(bufferOut.toString('utf8')).equal('1234567890ABCDEFGHIJK1234567890');
+  });
 
+  it('should write discarded bytes the file', () => {
+    const mision = new TasksOverFileProcessor(fs);
+
+    mision.execute('ficheros/testfile.txt', 'ficheros/testfile-out.txt', 'ficheros/testfile-discard.txt', []);
+
+    const bufferOut = fs.readFileSync('ficheros/testfile-discard.txt');
+    expect(bufferOut.toString('utf8')).equal('');
+  });
 });
