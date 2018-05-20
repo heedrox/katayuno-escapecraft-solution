@@ -7,7 +7,7 @@ describe('TasksOverFileAccumulator', () => {
   const fs = {};
   const FILE_IN = 'ficheros/testfile.txt';
   const FILE_OUT = 'ficheros/testfile-out.txt';
-  let processor;
+  let accumulator;
   let fsReadSpy;
   let fsWriteSpy;
 
@@ -17,52 +17,38 @@ describe('TasksOverFileAccumulator', () => {
     };
     fs.writeFileSync = () => {
     };
-    processor = new TasksOverFileAccumulator(fs);
+    accumulator = new TasksOverFileAccumulator(fs);
     fsReadSpy = sinon.spy(fs, 'readFileSync');
     fsWriteSpy = sinon.spy(fs, 'writeFileSync');
   });
 
   it('should read file into a buffer', () => {
-    processor.execute(FILE_IN, FILE_OUT, []);
+    accumulator.execute(FILE_IN, FILE_OUT, []);
 
     expect(fsReadSpy.calledWith(FILE_IN)).equal(true);
   });
 
-  it('should write file from the buffer', () => {
-    processor.execute(FILE_IN, FILE_OUT, []);
+  it('should write result file from the buffer', () => {
+    accumulator.execute(FILE_IN, FILE_OUT, []);
 
     expect(fsWriteSpy.firstCall.args[0]).equal(FILE_OUT);
   });
 
-  it('should get the first X bytes', () => {
-    const tasks = [
-      new GetBeginningTask(11)
+
+  it('should accumulate the results of each task while processing in the specified order', () => {
+    const tasksReduce = [
+      { execute: (x) => x.slice(3) }, //4567879...
+      { execute: (x) => x.slice(0,1) }, //4
+    ];
+    const tasksAccumulate = [
+      { execute: (x) => x.slice(0,3) }, //123
+      { execute: (x) => x.slice(1,2) }, //5
     ];
 
-    processor.execute(FILE_IN, FILE_OUT, tasks);
+    accumulator.execute(FILE_IN, FILE_OUT, tasksReduce, tasksAccumulate);
 
-    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901');
+    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('1235');
+
   });
-
-  it('should get the last Y bytes', () => {
-    const tasks = [
-      new GetLastTask(11),
-    ];
-
-    processor.execute(FILE_IN, '', tasks);
-
-    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('K1234567890');
-  });
-
-  it('should get the each X element', () => {
-    const tasks = [
-      new GetEachTask(3)
-    ];
-
-    processor.execute(FILE_IN, '', tasks);
-
-    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('369ADGJ258');
-  });
-
 
 });

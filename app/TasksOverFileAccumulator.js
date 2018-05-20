@@ -1,16 +1,26 @@
-class TasksOverFileProcessor {
+const buffersConcat = require('./lib/buffers-concat');
 
-    constructor(fs) {
-        this.fs = fs;
-    }
+class TasksOverFileAccumulator {
 
-    execute(filein, fileout, tasks) {
-        const fileContents = this.fs.readFileSync(filein);
+  constructor(fs) {
+    this.fs = fs;
+  }
 
-        const result = tasks.reduce((content, task) => task.execute(content), fileContents);
+  execute(filein, fileout, tasksReduce, tasksAccumulate) {
+    const fileContents = this.fs.readFileSync(filein);
 
-        this.fs.writeFileSync(fileout, result);
-    }
+    const buffers = [];
+    tasksReduce.reduce((content, task, index) => {
+      const accumulatePartialResult = tasksAccumulate[index].execute(content);
+      buffers.push(accumulatePartialResult);
+      return task.execute(content);
+    }, fileContents);
+
+
+    const result = buffersConcat(buffers);
+
+    this.fs.writeFileSync(fileout, result);
+  }
 }
 
-module.exports = TasksOverFileProcessor;
+module.exports = TasksOverFileAccumulator;
