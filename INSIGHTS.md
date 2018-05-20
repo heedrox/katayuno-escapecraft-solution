@@ -37,3 +37,8 @@ a misión 1. Y testar de forma incremental las responsabilidades...
 Reculo, y vuelvo para atrás :)
 
 ## Misión 2 avanzado - segunda opción
+
+- ejecuto las 3 tareas: y son muy muy muy similares a las anteriores (remove-each y get-each por ejemplo!)
+- también reflexiono que las remove y get (no el reverse) podrían abstraerse finalmente a una función que diga si descarto o me quedo ese byte... Pero no matchea con el concepto de reverse.
+
+
