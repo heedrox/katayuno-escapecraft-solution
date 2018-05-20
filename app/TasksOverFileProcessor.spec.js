@@ -3,9 +3,6 @@ import RemoveBeginningTask from './tasks/remove-beginning'
 import RemoveLastTask from './tasks/remove-last'
 import RemoveEachTask from './tasks/remove-each'
 import Reverse from './tasks/reverse'
-import GetBeginningTask from './tasks/get-beginning'
-import GetLastTask from './tasks/get-last'
-import GetEachTask from './tasks/get-each'
 
 describe('TasksOverFileProcessor', () => {
   const fs = {};
@@ -76,36 +73,6 @@ describe('TasksOverFileProcessor', () => {
     processor.execute(FILE_IN, '', tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('0987654321KJIHGFEDCBA10987654321');
-  });
-
-  it('should get the first X bytes', () => {
-    const tasks = [
-      new GetBeginningTask(11)
-    ];
-
-    processor.execute(FILE_IN, FILE_OUT, tasks);
-
-    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901');
-  });
-
-  it('should get the last Y bytes', () => {
-    const tasks = [
-      new GetLastTask(11),
-    ];
-
-    processor.execute(FILE_IN, '', tasks);
-
-    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('K1234567890');
-  });
-
-  it('should get the each X element', () => {
-    const tasks = [
-      new GetEachTask(3)
-    ];
-
-    processor.execute(FILE_IN, '', tasks);
-
-    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('369ADGJ258');
   });
 
 });

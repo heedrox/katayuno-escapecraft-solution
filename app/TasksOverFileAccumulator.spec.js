@@ -1,13 +1,9 @@
-import TasksOverFileProcessor from './TasksOverFileProcessor'
-import RemoveBeginningTask from './tasks/remove-beginning'
-import RemoveLastTask from './tasks/remove-last'
-import RemoveEachTask from './tasks/remove-each'
-import Reverse from './tasks/reverse'
+import TasksOverFileAccumulator from './TasksOverFileAccumulator'
 import GetBeginningTask from './tasks/get-beginning'
 import GetLastTask from './tasks/get-last'
 import GetEachTask from './tasks/get-each'
 
-describe('TasksOverFileProcessor', () => {
+describe('TasksOverFileAccumulator', () => {
   const fs = {};
   const FILE_IN = 'ficheros/testfile.txt';
   const FILE_OUT = 'ficheros/testfile-out.txt';
@@ -21,7 +17,7 @@ describe('TasksOverFileProcessor', () => {
     };
     fs.writeFileSync = () => {
     };
-    processor = new TasksOverFileProcessor(fs);
+    processor = new TasksOverFileAccumulator(fs);
     fsReadSpy = sinon.spy(fs, 'readFileSync');
     fsWriteSpy = sinon.spy(fs, 'writeFileSync');
   });
