@@ -25,4 +25,15 @@ a misión 1. Y testar de forma incremental las responsabilidades...
  + cambiar la interfaz de cada Task para tener un "getDiscardedBytes()"
  + o puedo crear nuevas tareas que hagan lo contrario y me obtengan los bytes, reusando todo. 
  La primera me fuerza a que los tasks sean conscientes de estado. La segunda es menos eficiente.
-- En este caso, lo hago a través de la primera opción, porque creo que es algo más complejo y quiero ver si saco insights...
+- En este caso, lo hago a través de la segunda opción, porque ya he ejecutado la primera opción, y he preferido volver a atrás en el tiempo:;
+
+## Misión 2 avanzado - primera opción
+
+- Primero me obliga a añadir un FILE_DISCARDED como parámetro, y refactorizar el TaskOverFileProcessor
+- Agrupo los teses en file - remove elements - get discarded bytes. Allí me doy cuenta del caso REVERSE, no es un task que elimina elementos!!! (puedo hacer que getDiscardedBytes me devuelva nulo, pero sería "mentira")
+- Hago los teses para confirmar que escribo en el fichero de descarte. Pero ¿cómo lo testeo si no sé cómo obtener los bytes? Voy a tener que acoplarlo al menos a una tarea... 
+- Y luego hay otro problema: el orden de los bytes descartados no coincide con el orden de ejecución de las tareas... Debería enviar al TaskOverFileProcessor un número para el orden de los bytes descartados, lo que complejiza el mantenimiento futuro.
+
+Reculo, y vuelvo para atrás :)
+
+## Misión 2 avanzado - segunda opción
