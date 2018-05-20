@@ -1,5 +1,6 @@
 import TasksOverFileProcessor from './TasksOverFileProcessor'
 import RemoveBeginningTask from './tasks/remove-beginning'
+import GetBeginningTask from './tasks/get-beginning'
 import RemoveLastTask from './tasks/remove-last'
 import RemoveEachTask from './tasks/remove-each'
 import Reverse from './tasks/reverse'
@@ -75,4 +76,13 @@ describe('TasksOverFileProcessor', () => {
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('0987654321KJIHGFEDCBA10987654321');
   });
 
+  it('should get the first X bytes', () => {
+    const tasks = [
+      new GetBeginningTask(11)
+    ];
+
+    processor.execute(FILE_IN, FILE_OUT, tasks);
+
+    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901');
+  });
 });
