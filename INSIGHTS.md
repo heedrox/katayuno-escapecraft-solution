@@ -8,4 +8,6 @@ Pienso entonces en el patrón de cadena de responsabilidades, y que quizás la s
 a misión 1. Y testar de forma incremental las responsabilidades...
 - He eliminado los primeros bytes, los últimos bytes... Pero me da miedo seguir, porque sé que tendré que refactorizar al final. Ya que el resultado debe ser escribir a fichero. Así que primero voy a asegurarme que hago y testeo bien que se escribe a fichero y luego sigo...
 
-- Así me sale: eliminar X bytes primeros, eliminar Y bytes finales, eliminar cada X elementos
+- Tras varias iteraciones ya tengo: eliminar X bytes primeros, eliminar Y bytes finales, eliminar cada X elementos, y reverse.
+
+- Finalmente creo el "app-mision1.js" que hace todo. Este no está testado (ni hecho vía tdd)... ¿aportaría valor? Es curioso pero he tenido varios intentos y errores a la hora de hacerlo. 

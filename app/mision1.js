@@ -1,5 +1,4 @@
-
-export default class Mision1 {
+class Mision1 {
 
     constructor(fs) {
         this.fs = fs;
@@ -14,3 +13,4 @@ export default class Mision1 {
     }
 }
 
+module.exports = Mision1;
