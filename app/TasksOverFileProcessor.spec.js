@@ -1,9 +1,10 @@
 import TasksOverFileProcessor from './TasksOverFileProcessor'
 import RemoveBeginningTask from './tasks/remove-beginning'
-import GetBeginningTask from './tasks/get-beginning'
 import RemoveLastTask from './tasks/remove-last'
 import RemoveEachTask from './tasks/remove-each'
 import Reverse from './tasks/reverse'
+import GetBeginningTask from './tasks/get-beginning'
+import GetLastTask from './tasks/get-last'
 
 describe('TasksOverFileProcessor', () => {
   const fs = {};
@@ -85,4 +86,17 @@ describe('TasksOverFileProcessor', () => {
 
     expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901');
   });
+
+  it('should get the last Y bytes', () => {
+    const tasks = [
+      new GetLastTask(11),
+    ];
+
+    processor.execute(FILE_IN, '', tasks);
+
+    expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('K1234567890');
+  });
+
+  
+
 });
