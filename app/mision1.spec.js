@@ -1,5 +1,6 @@
 import Mision1 from './mision1'
 import RemoveBeginningTask from './tasks/remove-beginning'
+import RemoveLastTask from './tasks/remove-last'
 
 describe("Katayuno", () => {
     const fs = {};
@@ -31,12 +32,13 @@ describe("Katayuno", () => {
   it('should remove the last Y bytes', () => {
     const mision = new Mision1(fs);
     const tasks = [
-      new RemoveBeginningTask(11)
+      new RemoveLastTask(10),
     ];
 
     const result = mision.execute('ficheros/testfile.txt', tasks);
 
-    expect(result.toString('utf8')).to.equal('ABCDEFGHIJK1234567890');
+    expect(result.toString('utf8')).to.equal('12345678901ABCDEFGHIJK');
   });
 
+  
 });
