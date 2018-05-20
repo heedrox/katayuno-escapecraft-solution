@@ -10,6 +10,7 @@ class TasksOverFileProcessor {
         const result = tasks.reduce((content, task) => task.execute(content), fileContents);
 
         this.fs.writeFileSync(fileout, result);
+        this.fs.writeFileSync(filediscarded, []);
     }
 }
 

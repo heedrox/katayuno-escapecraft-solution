@@ -36,6 +36,12 @@ describe('TasksOverFileProcessor', () => {
 
       expect(fsWriteSpy.firstCall.args[0]).equal(FILE_OUT);
     });
+
+    it('should write file to discard', () => {
+      processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, []);
+
+      expect(fsWriteSpy.secondCall.args[0]).equal(FILE_DISCARDED);
+    });
   });
 
   describe('does tasks that removes elements', () => {
@@ -80,7 +86,5 @@ describe('TasksOverFileProcessor', () => {
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('0987654321KJIHGFEDCBA10987654321');
   });
 
-  describe('when removing elements, we can get discarded bytes', () => {
 
-  });
 });
