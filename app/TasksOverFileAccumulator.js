@@ -11,11 +11,12 @@ class TasksOverFileAccumulator {
 
     const buffers = [];
     tasksReduce.reduce((content, task, index) => {
-      const accumulatePartialResult = tasksAccumulate[index].execute(content);
-      buffers.push(accumulatePartialResult);
+      if (index < tasksAccumulate.length) {
+        const accumulatePartialResult = tasksAccumulate[index].execute(content);
+        buffers.push(accumulatePartialResult);
+      }
       return task.execute(content);
     }, fileContents);
-
 
     const orderedBuffers = orders ? orders.map(position => buffers[position]) : buffers;
     const result = buffersConcat(orderedBuffers);

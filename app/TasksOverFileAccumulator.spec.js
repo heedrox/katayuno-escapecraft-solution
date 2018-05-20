@@ -42,7 +42,7 @@ describe('TasksOverFileAccumulator', () => {
     ];
     const tasksAccumulate = [
       { execute: (x) => x.slice(0,3) }, //123
-      { execute: (x) => x.slice(1,2) }, //5
+      { execute: (x) => x.slice(1,2) }, //5 (this is done over the partial result of the reducing tasks...)
     ];
     const orders = [1, 0];
 
@@ -51,4 +51,18 @@ describe('TasksOverFileAccumulator', () => {
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('5123');
   });
 
+  it('should not fail if tasks to accumulate are less than tasks to reduce', () => {
+    const tasksReduce = [
+      { execute: (x) => x.slice(3) }, //4567879...
+      { execute: (x) => x.slice(0,1) }, //4
+    ];
+    const tasksAccumulate = [
+      { execute: (x) => x.slice(0,3) }, //123
+    ];
+    const orders = [0];
+
+    accumulator.execute(FILE_IN, FILE_OUT, tasksReduce, tasksAccumulate, orders);
+
+    expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('123');
+  });
 });
