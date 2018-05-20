@@ -15,7 +15,7 @@ describe('Katayuno Mission 1', () => {
   beforeEach(() => {
     fs.readFileSync = () => {
       return Buffer.from('12345678901ABCDEFGHIJK1234567890');
-    }
+    };
     fs.writeFileSync = () => {
     };
     mision = new Mision1(fs);
