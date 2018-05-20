@@ -41,7 +41,14 @@ Reculo, y vuelvo para atrás :)
 - ejecuto las 3 tareas: y son muy muy muy similares a las anteriores (remove-each y get-each por ejemplo!)
 - también reflexiono que las remove y get (no el reverse) podrían abstraerse finalmente a una función que diga si descarto o me quedo ese byte... Pero no matchea con el concepto de reverse.
 - me doy cuenta que necesito un TasksOverFileAccumulator, que añada el resultado de las tareas, en vez de procesarla una tras otra e ir filtrando.
-- creo un test para eso, y en él pongo las responsadiblidades del "get"; aunque en realidad sus responsabilidades son las de acumular resultados de tareas.
+- creo un test para eso, y en él pongo las responsabilidades del "get"; aunque en realidad sus responsabilidades son las de acumular resultados de tareas.
+- Aquí me doy cuenta que realmente tengo que hacer un híbrido entre la primera opción y la segunda, porque no es que haga las tareas de get y luego las de reduce, sino que debo hacer una mientras la otra...
+- Por eso vuelvo a cambiar las responsabilidades del get al Processor, y las del Accumulator es la de devolver solo lo que se va descartando (y es que el resultado del primer fichero original me da igual, porque no sirve para nada... )
+- Necesito que se ejecuten las tareas de reduce, mientras voy haciendo las de acumulación, por lo que realmente este tiene dos parámetros: tasksReduce and tasksAccumulator.
+- Finalmente tengo que concatenar los buffers finales en base a un orden diferente al de ejecución, por lo que añado un parámetro "order"
+
+
+¡FIN!
 
 
 
