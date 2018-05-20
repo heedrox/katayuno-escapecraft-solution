@@ -1,14 +1,14 @@
-import Mision1 from './mision1'
+import TasksOverFileProcessor from './TasksOverFileProcessor'
 import RemoveBeginningTask from './tasks/remove-beginning'
 import RemoveLastTask from './tasks/remove-last'
 import RemoveEachTask from './tasks/remove-each'
 import Reverse from './tasks/reverse'
 
-describe('Katayuno Mission 1', () => {
+describe('TasksOverFileProcessor', () => {
   const fs = {};
   const FILE_IN = 'ficheros/testfile.txt';
   const FILE_OUT = 'ficheros/testfile-out.txt';
-  let mision;
+  let processor;
   let fsReadSpy;
   let fsWriteSpy;
 
@@ -18,19 +18,19 @@ describe('Katayuno Mission 1', () => {
     };
     fs.writeFileSync = () => {
     };
-    mision = new Mision1(fs);
+    processor = new TasksOverFileProcessor(fs);
     fsReadSpy = sinon.spy(fs, 'readFileSync');
     fsWriteSpy = sinon.spy(fs, 'writeFileSync');
   });
 
   it('should read file into a buffer', () => {
-    mision.execute(FILE_IN, FILE_OUT, []);
+    processor.execute(FILE_IN, FILE_OUT, []);
 
     expect(fsReadSpy.calledWith(FILE_IN)).equal(true);
   });
 
   it('should write file from the buffer', () => {
-    mision.execute(FILE_IN, FILE_OUT, []);
+    processor.execute(FILE_IN, FILE_OUT, []);
 
     expect(fsWriteSpy.firstCall.args[0]).equal(FILE_OUT);
   });
@@ -40,7 +40,7 @@ describe('Katayuno Mission 1', () => {
       new RemoveBeginningTask(11)
     ];
 
-    mision.execute(FILE_IN, FILE_OUT, tasks);
+    processor.execute(FILE_IN, FILE_OUT, tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('ABCDEFGHIJK1234567890');
   });
@@ -50,7 +50,7 @@ describe('Katayuno Mission 1', () => {
       new RemoveLastTask(10),
     ];
 
-    mision.execute(FILE_IN, '', tasks);
+    processor.execute(FILE_IN, '', tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901ABCDEFGHIJK');
   });
@@ -60,7 +60,7 @@ describe('Katayuno Mission 1', () => {
       new RemoveEachTask(3)
     ];
 
-    mision.execute(FILE_IN, '', tasks);
+    processor.execute(FILE_IN, '', tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('12457801BCEFHIK1346790');
   });
@@ -70,7 +70,7 @@ describe('Katayuno Mission 1', () => {
       new Reverse()
     ];
 
-    mision.execute(FILE_IN, '', tasks);
+    processor.execute(FILE_IN, '', tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('0987654321KJIHGFEDCBA10987654321');
   });

@@ -1,4 +1,4 @@
-class Mision1 {
+class TasksOverFileProcessor {
 
     constructor(fs) {
         this.fs = fs;
@@ -13,4 +13,4 @@ class Mision1 {
     }
 }
 
-module.exports = Mision1;
+module.exports = TasksOverFileProcessor;

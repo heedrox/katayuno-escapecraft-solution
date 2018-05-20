@@ -1,15 +1,13 @@
-import Mision1 from './mision1'
-import RemoveBeginningTask from './tasks/remove-beginning'
-import RemoveLastTask from './tasks/remove-last'
+import TasksOverFileProcessor from './TasksOverFileProcessor'
 const fs = require('fs');
 
-describe("Katayuno Mission 1 Integration", () => {
+describe("TasksOverFileProcessor Integration", () => {
 
     beforeEach(() => {
     });
 
     it("should read and write the file", () => {
-        const mision = new Mision1(fs);
+        const mision = new TasksOverFileProcessor(fs);
 
         mision.execute('ficheros/testfile.txt', 'ficheros/testfile-out.txt', []);
 

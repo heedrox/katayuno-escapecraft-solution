@@ -1,3 +1,5 @@
+# MISION 1
+
 - ¿Cómo hemos comenzado el test? Yo de arriba a abajo, es decir, "leo un fichero..." Me daba miedo que al hacerlo al revés, lo implementara mal en base al tipo de elemento que me devuelve el fichero
 - Al principio he empezado de integración, leyendo el fichero, pero luego he mockeado "fs".
 - Luego he hecho espías para dejar el test de "leer fichero"
@@ -11,3 +13,11 @@ a misión 1. Y testar de forma incremental las responsabilidades...
 - Tras varias iteraciones ya tengo: eliminar X bytes primeros, eliminar Y bytes finales, eliminar cada X elementos, y reverse.
 
 - Finalmente creo el "app-mision1.js" que hace todo. Este no está testado (ni hecho vía tdd)... ¿aportaría valor? Es curioso pero he tenido varios intentos y errores a la hora de hacerlo. 
+
+# MISION 2
+
+- En teoría tan fácil como cambiar app-mision1.js, pero cambiando parámetros si lo hemos hecho "bien".
+
+# MISION 2AVANZADO
+
+- Aquí refactorizo primero Mision1. ¿Cuál es su responsabilidad? Ejecutar tasks sobre un fichero y guardarlo, así que lo refactorizo a TasksOverFileProcessor
