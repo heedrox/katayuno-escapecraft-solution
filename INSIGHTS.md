@@ -26,3 +26,6 @@ a misión 1. Y testar de forma incremental las responsabilidades...
  + o puedo crear nuevas tareas que hagan lo contrario y me obtengan los bytes, reusando todo. 
  La primera me fuerza a que los tasks sean conscientes de estado. La segunda es menos eficiente.
 - En este caso, lo hago a través de la primera opción, porque creo que es algo más complejo y quiero ver si saco insights...
+
+- Primero me obliga a añadir un FILE_DISCARDED como parámetro, y refactorizar el TaskOverFileProcessor
+- 

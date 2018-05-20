@@ -8,6 +8,7 @@ describe('TasksOverFileProcessor', () => {
   const fs = {};
   const FILE_IN = 'ficheros/testfile.txt';
   const FILE_OUT = 'ficheros/testfile-out.txt';
+  const FILE_DISCARDED = 'ficheros/testfile-discard.txt';
   let processor;
   let fsReadSpy;
   let fsWriteSpy;
@@ -24,13 +25,13 @@ describe('TasksOverFileProcessor', () => {
   });
 
   it('should read file into a buffer', () => {
-    processor.execute(FILE_IN, FILE_OUT, []);
+    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, []);
 
     expect(fsReadSpy.calledWith(FILE_IN)).equal(true);
   });
 
   it('should write file from the buffer', () => {
-    processor.execute(FILE_IN, FILE_OUT, []);
+    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, []);
 
     expect(fsWriteSpy.firstCall.args[0]).equal(FILE_OUT);
   });
@@ -40,7 +41,7 @@ describe('TasksOverFileProcessor', () => {
       new RemoveBeginningTask(11)
     ];
 
-    processor.execute(FILE_IN, FILE_OUT, tasks);
+    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('ABCDEFGHIJK1234567890');
   });
@@ -50,7 +51,7 @@ describe('TasksOverFileProcessor', () => {
       new RemoveLastTask(10),
     ];
 
-    processor.execute(FILE_IN, '', tasks);
+    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString()).to.equal('12345678901ABCDEFGHIJK');
   });
@@ -60,7 +61,7 @@ describe('TasksOverFileProcessor', () => {
       new RemoveEachTask(3)
     ];
 
-    processor.execute(FILE_IN, '', tasks);
+    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('12457801BCEFHIK1346790');
   });
@@ -70,7 +71,7 @@ describe('TasksOverFileProcessor', () => {
       new Reverse()
     ];
 
-    processor.execute(FILE_IN, '', tasks);
+    processor.execute(FILE_IN, FILE_OUT, FILE_DISCARDED, tasks);
 
     expect(fsWriteSpy.firstCall.args[1].toString('utf8')).to.equal('0987654321KJIHGFEDCBA10987654321');
   });

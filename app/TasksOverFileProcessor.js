@@ -4,7 +4,7 @@ class TasksOverFileProcessor {
         this.fs = fs;
     }
 
-    execute(filein, fileout, tasks) {
+    execute(filein, fileout, filediscarded, tasks) {
         const fileContents = this.fs.readFileSync(filein);
 
         const result = tasks.reduce((content, task) => task.execute(content), fileContents);

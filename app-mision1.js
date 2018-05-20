@@ -7,8 +7,9 @@ const fs = require('fs');
 
 const FILE_IN = 'ficheros/CPE1704TKS.txt';
 const FILE_OUT = 'ficheros/CPE1704TKS_result.jpg';
+const FILE_DISCARDED = 'ficheros/CPE1704TKS_discarded.jpg';
 
-new TasksOverFileProcessor(fs).execute(FILE_IN, FILE_OUT, [
+new TasksOverFileProcessor(fs).execute(FILE_IN, FILE_OUT, FILE_DISCARDED, [
   new RemoveBeginning(100),
   new RemoveLast(100),
   new RemoveEach(3),
