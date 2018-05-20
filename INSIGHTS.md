@@ -40,5 +40,8 @@ Reculo, y vuelvo para atrás :)
 
 - ejecuto las 3 tareas: y son muy muy muy similares a las anteriores (remove-each y get-each por ejemplo!)
 - también reflexiono que las remove y get (no el reverse) podrían abstraerse finalmente a una función que diga si descarto o me quedo ese byte... Pero no matchea con el concepto de reverse.
+- me doy cuenta que necesito un TasksOverFileAccumulator, que añada el resultado de las tareas, en vez de procesarla una tras otra e ir filtrando.
+- creo un test para eso, y en él pongo las responsadiblidades del "get"; aunque en realidad sus responsabilidades son las de acumular resultados de tareas.
+
 
 
