@@ -14,10 +14,15 @@ a misión 1. Y testar de forma incremental las responsabilidades...
 
 - Finalmente creo el "app-mision1.js" que hace todo. Este no está testado (ni hecho vía tdd)... ¿aportaría valor? Es curioso pero he tenido varios intentos y errores a la hora de hacerlo. 
 
-# MISION 2
+# MISION 2 FACIL (2f)
 
 - En teoría tan fácil como cambiar app-mision1.js, pero cambiando parámetros si lo hemos hecho "bien".
 
-# MISION 2AVANZADO
+# MISION 2 AVANZADO (2a)
 
-- Aquí refactorizo primero Mision1. ¿Cuál es su responsabilidad? Ejecutar tasks sobre un fichero y guardarlo, así que lo refactorizo a TasksOverFileProcessor
+- Aquí refactorizo primero Mision1. Reflexiono: ¿Cuál es su responsabilidad? Ejecutar tasks sobre un fichero y guardarlo, así que lo refactorizo a TasksOverFileProcessor
+- Y pienso en que tengo dos opciones: 
+ + cambiar la interfaz de cada Task para tener un "getDiscardedBytes()"
+ + o puedo crear nuevas tareas que hagan lo contrario y me obtengan los bytes, reusando todo. 
+ La primera me fuerza a que los tasks sean conscientes de estado. La segunda es menos eficiente.
+- En este caso, lo hago a través de la primera opción, porque creo que es algo más complejo y quiero ver si saco insights...
